@@ -32,7 +32,7 @@ export default function MostOrderedFoodsList() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div className="bg-white w-1/2 p-6  rounded-lg ">
       <div className="font-bold text-lg mb-4">Most Ordered Food</div>
       <div className="text-gray-600 mb-6">
         Adipiscing elit, sed do eiusmod tempor

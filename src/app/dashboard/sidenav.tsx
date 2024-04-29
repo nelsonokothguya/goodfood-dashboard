@@ -96,7 +96,7 @@ export default function Sidenav() {
   const groupedLinks = groupBySection(links);
 
   return (
-    <div className="col-span-1 md:col-span-1">
+    <div>
       {Object.entries(groupedLinks).map(([sectionTitle, links]) => (
         <Fragment key={sectionTitle}>
           <div className="mt-6 mb-2 px-3 text-lg font-semibold">

@@ -9,7 +9,8 @@ import {
   TooltipProps,
   Payload,
 } from "recharts";
-import { Payload } from "recharts";
+
+import ViewReportButton from "./view-report-button";
 
 // Define an interface for your data
 interface ChartData {
@@ -28,7 +29,7 @@ const COLORS: string[] = ["#5A6ACF", "#8593ED", "#C7CEFF"];
 
 type CustomTooltipProps = TooltipProps<number, string>;
 
-export function CustomTooltip({ active, payload }) {
+function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     return (
       <div className="relative inline-block">
@@ -59,22 +60,48 @@ const renderCustomLegend = (value: string, entry: Payload) => {
 
 export default function OrderTimeChart() {
   return (
-    <PieChart width={1000} height={400}>
-      <Pie
-        dataKey="value"
-        data={data02}
-        cx={500}
-        cy={200}
-        innerRadius={50}
-        outerRadius={80}
-        width={1000}
-      >
-        {data02.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-      <Tooltip content={<CustomTooltip />} />
-      <Legend formatter={renderCustomLegend} iconType="circle" />
-    </PieChart>
+    <div>
+      <div className="flex justify-between items-center">
+        <h1 className="text-xlg font-semibold">Order Time</h1>
+        <ViewReportButton />
+      </div>
+      <OrderTimeChartInfo />
+      <div>
+        <PieChart width={500} height={300}>
+          <Pie
+            dataKey="value"
+            data={data02}
+            cx={200}
+            cy={100}
+            innerRadius={70}
+            outerRadius={100}
+            width={500}
+          >
+            {data02.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Pie>
+          <Tooltip content={<CustomTooltip />} />
+          <Legend formatter={renderCustomLegend} iconType="circle" />
+        </PieChart>
+      </div>
+    </div>
+  );
+}
+
+function OrderTimeChartInfo() {
+  const date = new Date();
+
+  return (
+    <div>
+      <p className="text-sm text-gray-500">
+        From {date.getDate() - 7}-{date.getDate()}{" "}
+        {date.toLocaleString("default", { month: "long" })},{" "}
+        {date.getFullYear()}
+      </p>
+    </div>
   );
 }

@@ -9,7 +9,10 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { legendColor } from "./revenue-chart";
+import { legendFormatter } from "./revenue-chart";
+import ViewReportButton from "./view-report-button";
+import { CustomTooltip } from "./revenue-chart";
+import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/24/solid";
 
 const data = [
   {
@@ -64,29 +67,83 @@ const data = [
 
 export default function OrderTrendChart() {
   return (
-    <LineChart
-      width={1000}
-      height={500}
-      data={data}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" vertical={false} />
-      <XAxis dataKey="date" />
+    <div>
+      <div className="flex justify-between items-center">
+        <h1 className="text-xlg font-semibold">Order</h1>
+        <ViewReportButton />
+      </div>
+      <div>
+        <OrderTrendChartInfo />
+        <div className="mt-10">
+          <LineChart
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+            <XAxis dataKey="date" />
 
-      <Tooltip />
-      <Legend iconType="circle" formatter={legendColor} />
-      <Line dataKey="lastWeek" stroke="#E6E8EC" dot={false} strokeWidth={4} />
-      <Line
-        dataKey="lastEightDays"
-        stroke="#5A6ACF"
-        dot={false}
-        strokeWidth={4}
-      />
-    </LineChart>
+            <Tooltip content={<CustomTooltip />} />
+            <Legend iconType="circle" formatter={legendFormatter} />
+            <Line
+              dataKey="lastWeek"
+              stroke="#E6E8EC"
+              dot={false}
+              strokeWidth={4}
+            />
+            <Line
+              dataKey="lastEightDays"
+              stroke="#5A6ACF"
+              dot={false}
+              strokeWidth={4}
+            />
+          </LineChart>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function OrderTrendChartInfo() {
+  const totalOrder = (data) => {
+    const total = data.reduce((acc, curr) => acc + curr.lastEightDays, 0);
+    return total.toFixed(3);
+  };
+  const percentage =
+    ((data[6].lastEightDays - data[6].lastWeek) / data[6].lastWeek) * 100;
+
+  const date = new Date();
+
+  return (
+    <div>
+      <div>
+        <p className="text-lg font-semibold">{totalOrder(data)}</p>
+      </div>
+      <div>
+        <div className="flex items-center">
+          <p className="flex text-lg">
+            {percentage > 0 ? (
+              <ArrowUpIcon className="h-7 w-5 text-green-500" />
+            ) : (
+              <ArrowDownIcon className="h-7 w-5 text-red-500" />
+            )}
+            {percentage.toFixed(1)}% vs last week
+          </p>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-gray-500">
+          Sales from {date.getDate() - 7}-{date.getDate()}{" "}
+          {date.toLocaleString("default", { month: "long" })},{" "}
+          {date.getFullYear()}
+        </p>
+      </div>
+    </div>
   );
 }
