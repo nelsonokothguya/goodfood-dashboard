@@ -28,9 +28,11 @@ This application serves as a dashboard for managing and monitoring various aspec
 - Represents the order trend for the last 8 days and the previous week using a line chart or area chart.
 
 ## Tech Stack
-- Next.js
+- React- Next.js
 - TypeScript
-- npm (Node.js v20.11.0, npm v10.5.2)
+- npm 
+- Tailwind CSS
+
 
 ## Scripts
 - `npm run dev`: To run the application in development mode.
@@ -47,6 +49,12 @@ cd goodfood-dashboard
 
 ```
 #### Install Dependencies 
+- npm (Node.js v20.11.0, npm v10.5.2). Install the latest versions 
+```bash
+ nvm use --lts 
+ ```
+ Then,
+ 
 ```bash
 npm install
 ```
@@ -59,4 +67,4 @@ npm run dev
 Open your browser and navigate to: http://localhost:3000
 
 ## Notes
-Please replace <repository-url> with the actual URL of your Git repository. Before using this README.md, be sure to verify and adjust any special formatting or sections to meet the specific requirements of your project.
+ Before using this README.md, be sure to verify and adjust any special formatting or sections to meet the specific requirements of your project.
