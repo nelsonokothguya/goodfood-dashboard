@@ -90,7 +90,7 @@ export const CustomTooltip = ({ active, payload, label }) => {
 
 export default function RevenueChart() {
   return (
-    <div>
+    <div className="p-6">
       <div className="flex justify-between items-center">
         <h1 className="text-xlg font-semibold">Revenue</h1>
         <ViewReportButton />

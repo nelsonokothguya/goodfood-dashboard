@@ -67,7 +67,7 @@ const data = [
 
 export default function OrderTrendChart() {
   return (
-    <div>
+    <div className="p-6">
       <div className="flex justify-between items-center">
         <h1 className="text-xlg font-semibold">Order</h1>
         <ViewReportButton />
@@ -76,7 +76,7 @@ export default function OrderTrendChart() {
         <OrderTrendChartInfo />
         <div className="mt-10">
           <LineChart
-            width={500}
+            width={700}
             height={300}
             data={data}
             margin={{
@@ -92,14 +92,14 @@ export default function OrderTrendChart() {
             <Tooltip content={<CustomTooltip />} />
             <Legend iconType="circle" formatter={legendFormatter} />
             <Line
-              dataKey="lastWeek"
-              stroke="#E6E8EC"
+              dataKey="lastEightDays"
+              stroke="#5A6ACF"
               dot={false}
               strokeWidth={4}
             />
             <Line
-              dataKey="lastEightDays"
-              stroke="#5A6ACF"
+              dataKey="lastWeek"
+              stroke="#E6E8EC"
               dot={false}
               strokeWidth={4}
             />
@@ -127,13 +127,13 @@ function OrderTrendChartInfo() {
       </div>
       <div>
         <div className="flex items-center">
-          <p className="flex text-lg">
+          <p className="flex text-lg ">
             {percentage > 0 ? (
               <ArrowUpIcon className="h-7 w-5 text-green-500" />
             ) : (
               <ArrowDownIcon className="h-7 w-5 text-red-500" />
             )}
-            {percentage.toFixed(1)}% vs last week
+            <p>{percentage.toFixed(1)}% vs last week</p>
           </p>
         </div>
       </div>

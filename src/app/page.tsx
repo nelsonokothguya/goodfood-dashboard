@@ -9,15 +9,15 @@ import { poppins } from "./dashboard/font";
 
 export default function Page() {
   return (
-    <main>
+    <main className="px-8">
       <header className="flex justify-between">
         <Header />
       </header>
       <div className="w-full h-full flex">
-        <div className="w-1/5 border-r border-gray-300">
+        <div className="w-1/6 border-r bg-gray-100 border-gray-300">
           <Sidenav />
         </div>
-        <div className="w-1/2 h-full mt-24 border-l border-r border-gray-300">
+        <div className="w-1/2 h-full mt-24 border-r bg-white border-gray-300">
           <div className="h-1/2 border-b border-gray-300">
             <RevenueChart />
           </div>
@@ -28,7 +28,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div className="w-1/3 mt-24 border-l border-gray-300">
+        <div className="w-1/4 mt-24 bg-white">
           <div>
             <OrderTimeChart />
           </div>

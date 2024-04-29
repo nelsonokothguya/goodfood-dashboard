@@ -3,9 +3,32 @@ import React, { useCallback, useState } from "react";
 import { PieChart, Pie, Sector } from "recharts";
 import { poppins } from "./font";
 
-const data1 = [{ name: "Food Taste", value: 85 }];
-const data2 = [{ name: "Packaging", value: 92 }];
-const data3 = [{ name: "Hygiene", value: 85 }];
+const initialData = [
+  {
+    name: "Food Taste",
+    value: 85,
+    color: "#f99c30",
+    cx: 270,
+    cy: 140,
+    radius: 100,
+  },
+  {
+    name: "Packaging",
+    value: 92,
+    color: "#2fbfde",
+    cx: 90,
+    cy: 200,
+    radius: 70,
+  },
+  {
+    name: "Hygiene",
+    value: 85,
+    color: "#8884d8",
+    cx: 150,
+    cy: 70,
+    radius: 50,
+  },
+];
 
 const renderActiveShape = (props: any) => {
   const {
@@ -66,48 +89,38 @@ const renderActiveShape = (props: any) => {
 };
 
 export default function RatingsChart() {
+  const [data, setData] = useState(initialData);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const updateData = useCallback((index: number, value: number) => {
+    setData((prevData) => {
+      const newData = [...prevData];
+      newData[index].value = value;
+      return newData;
+    });
+  }, []);
+
   return (
-    <div className="w-1/2">
-      <div className="font-bold text-lg mb-5">Your Rating</div>
+    <div className="w-1/2 p-6">
+      <div className="font-bold text-lg mb-1">Your Rating</div>
       <div className="text-gray-600 mb-6">
         Lorem ipsum dolor sit amet, consectetur
       </div>
       <PieChart width={500} height={300}>
-        <Pie
-          activeIndex={activeIndex}
-          activeShape={renderActiveShape}
-          data={data3}
-          cx={140}
-          cy={70}
-          outerRadius={55}
-          fill="#8884d8"
-          dataKey="value"
-          startAngle={0}
-        />
-        <Pie
-          activeIndex={activeIndex}
-          activeShape={renderActiveShape}
-          data={data2}
-          cx={90}
-          cy={200}
-          outerRadius={60}
-          fill="#2fbfde"
-          dataKey="value"
-          startAngle={0}
-        />
-        <Pie
-          activeIndex={activeIndex}
-          activeShape={renderActiveShape}
-          data={data1}
-          cx={270}
-          cy={140}
-          outerRadius={100}
-          fill="#f99c30"
-          dataKey="value"
-          startAngle={0}
-        />
+        {data.map((entry, index) => (
+          <Pie
+            key={index}
+            activeIndex={activeIndex}
+            activeShape={renderActiveShape}
+            data={[entry]}
+            cx={entry.cx}
+            cy={entry.cy}
+            outerRadius={entry.radius}
+            fill={entry.color}
+            dataKey="value"
+            startAngle={0}
+          />
+        ))}
       </PieChart>
     </div>
   );

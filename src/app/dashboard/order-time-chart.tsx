@@ -34,9 +34,11 @@ function CustomTooltip({ active, payload }) {
     return (
       <div className="relative inline-block">
         <div className="custom-tooltip bg-slate-900 text-white p-4 rounded-lg shadow-md before:content-[''] before:absolute before:border-8 before:border-transparent before:border-b-slate-900 before:-top-2 before:left-1/2 before:-translate-x-1/2 before:-z-10">
-          <p className="font-bold">{`${payload[0].name}:`}</p>
-          <p>{payload[0].payload.time}</p>
-          <p>{`${payload[0].value} orders`}</p>
+          <p className=" text-white font-medium text-12px tracking-0.3px leading-13 font-poppins">{`${payload[0].name}:`}</p>
+          <p className=" relative text-white font-medium text-12px tracking-0.3px leading-12 font-poppins opacity-50">
+            {payload[0].payload.time}
+          </p>
+          <p className="relative text-white text-left inline-block font-medium font-poppins text-base leading-4">{`${payload[0].value} orders`}</p>
         </div>
       </div>
     );
@@ -60,7 +62,7 @@ const renderCustomLegend = (value: string, entry: Payload) => {
 
 export default function OrderTimeChart() {
   return (
-    <div>
+    <div className="p-6">
       <div className="flex justify-between items-center">
         <h1 className="text-xlg font-semibold">Order Time</h1>
         <ViewReportButton />
