@@ -17,7 +17,10 @@ export default function Page() {
         <div className="w-1/6 border-r bg-gray-100 border-gray-300">
           <Sidenav />
         </div>
-        <div className="w-1/2 h-full mt-24 border-r bg-white border-gray-300">
+        <div className="w-1/2 h-full mt-5 border-r bg-white border-gray-300">
+          <div className="p-6 font-bold ">
+            <h1>Dashboard</h1>
+          </div>
           <div className="h-1/2 border-b border-gray-300">
             <RevenueChart />
           </div>
