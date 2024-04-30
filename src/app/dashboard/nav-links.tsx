@@ -14,7 +14,13 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function NavLinks({ links }) {
+type NavLink = {
+  name: string;
+  href: string;
+  Icon: React.FC;
+};
+
+export default function NavLinks({ links }: { links: NavLink[] }) {
   const pathName = usePathname();
 
   return (
@@ -33,7 +39,9 @@ export default function NavLinks({ links }) {
             )}
             style={{ opacity: 0.5 }}
           >
-            <LinkIcon className="w-6" />
+            <div className="w-6">
+              <LinkIcon />
+            </div>
             <p className="inline-block w-112 relative text-12 tracking-0.5 leading-12 font-poppins text-gray-700 text-left md:block">
               {link.name}
             </p>

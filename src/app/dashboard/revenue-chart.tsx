@@ -13,6 +13,13 @@ import {
 import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/24/solid";
 import ViewReportButton from "./view-report-button";
 
+type Data = {
+  date: string;
+  lastEightDays: number;
+  lastWeek: number;
+  amt: number;
+};
+
 const data = [
   {
     date: "01",

@@ -21,7 +21,6 @@ export type Link = {
   section: "MENU" | "OTHERS";
 };
 
-// Define your links with an additional section property.
 export const links = [
   {
     id: 1,
@@ -82,7 +81,7 @@ export const links = [
 ];
 
 // Utility function to group links by section
-function groupBySection(links: Link[]) {
+function groupBySection(links: Link[]): Record<string, Link[]> {
   return links.reduce((sections, link) => {
     if (!sections[link.section]) {
       sections[link.section] = [];

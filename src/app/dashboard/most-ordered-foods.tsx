@@ -1,4 +1,10 @@
 import Image from "next/image";
+export type Food = {
+  name: string;
+  image_url: string;
+  price: number;
+};
+
 
 export default function MostOrderedFoodsList() {
   const foods = [

@@ -13,6 +13,12 @@ import { legendFormatter } from "./revenue-chart";
 import ViewReportButton from "./view-report-button";
 import { CustomTooltip } from "./revenue-chart";
 import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/24/solid";
+type Data = {
+  date: string;
+  lastEightDays: number;
+  lastWeek: number;
+  amt: number;
+};
 
 const data = [
   {

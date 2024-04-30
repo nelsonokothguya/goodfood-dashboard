@@ -12,7 +12,6 @@ import {
 
 import ViewReportButton from "./view-report-button";
 
-// Define an interface for your data
 interface ChartData {
   name: string;
   value: number;
@@ -28,8 +27,16 @@ const data02: ChartData[] = [
 const COLORS: string[] = ["#5A6ACF", "#8593ED", "#C7CEFF"];
 
 type CustomTooltipProps = TooltipProps<number, string>;
+type Payload = {
+  color: string;
+  value: number;
+  name: string;
+  payload: ChartData;
+};
 
-function CustomTooltip({ active, payload }) {
+type activePayload = {} | null;
+
+function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     return (
       <div className="relative inline-block">
