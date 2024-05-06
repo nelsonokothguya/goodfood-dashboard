@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function AccountInfo() {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-end">
       <div className="flex items-center space-x-2">
         <Image
           src="/account-info/emoticon.png"

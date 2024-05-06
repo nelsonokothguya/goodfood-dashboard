@@ -5,7 +5,6 @@ export type Food = {
   price: number;
 };
 
-
 export default function MostOrderedFoodsList() {
   const foods = [
     {
@@ -38,16 +37,16 @@ export default function MostOrderedFoodsList() {
   };
 
   return (
-    <div className="bg-white p-12 rounded-lg ">
+    <div className="bg-white  rounded-lg ">
       <div className="w-full">
-        <div className="font-bold text-lg mb-1">Most Ordered Food</div>
+        <div className="font-bold text-lg ">Most Ordered Food</div>
         <div className="text-gray-600 mb-6 opacity-50">
           Adipiscing elit, sed do eiusmod tempor
         </div>
         {foods.map((food, index) => (
           <div
             key={index}
-            className={`flex items-center mb-4 last:mb-0 ${borderClass(index)}`}
+            className={`flex items-center mb-6 last:mb-0 ${borderClass(index)}`}
           >
             <div className="flex-none w-10 h-10 relative mr-3">
               <Image

@@ -2,7 +2,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 export default function Search() {
   return (
-    <div className="flex items-center space-x-2 w-1/2 border p-2 rounded transition-colors duration-150 ease-in-out hover:border-blue-800 ">
+    <div className="flex items-center space-x-2 w-4/5 border p-2 rounded transition-colors duration-150 ease-in-out hover:border-blue-800 ">
       <input
         type="text"
         placeholder="Search"

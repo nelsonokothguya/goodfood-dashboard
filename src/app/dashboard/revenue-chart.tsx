@@ -20,6 +20,10 @@ type Data = {
   amt: number;
 };
 
+type Label = {
+  [key: string]: string;
+};
+
 const data = [
   {
     date: "01",
@@ -69,14 +73,26 @@ const data = [
   { date: "11", lastEightDays: 2780, lastWeek: 3908, amt: 2000 },
   { date: "12", lastEightDays: 1890, lastWeek: 4800, amt: 2181 },
 ];
-export const legendFormatter = (value) => {
-  const labels = {
+export const legendFormatter = (key: string) => {
+  const labels: Label = {
     lastEightDays: "Last 8 days",
     lastWeek: "Last Week",
   };
-  return <span style={{ color: "#121212" }}>{labels[value] || value}</span>;
+  return <span style={{ color: "#121212" }}>{labels[key] || key}</span>;
 };
-export const CustomTooltip = ({ active, payload, label }) => {
+export const CustomTooltip = ({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  label?: string;
+  payload?: {
+    value: number;
+    color: string;
+    name: string;
+  }[];
+}) => {
   if (active && payload && payload.length) {
     return (
       <div className="custom-tooltip bg-white p-2 shadow-lg rounded">
@@ -135,7 +151,7 @@ export default function RevenueChart() {
 }
 
 function RevenueChartInfo() {
-  const totalRevenue = (data) => {
+  const totalRevenue = (data: Data[]) => {
     const total = data.reduce((acc, curr) => acc + curr.lastEightDays, 0);
     return `IDR ${total.toFixed(3)}`;
   };

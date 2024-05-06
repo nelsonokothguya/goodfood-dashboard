@@ -1,7 +1,20 @@
 "use client";
 import React, { useCallback, useState } from "react";
-import { PieChart, Pie, Sector } from "recharts";
+import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 import { poppins } from "./font";
+
+type Data = {
+  name: string;
+  value: number;
+  color: string;
+  cx: number;
+  cy: number;
+  radius: number;
+};
+
+type Props = {
+  data: Data[];
+};
 
 const initialData = [
   {
@@ -92,36 +105,30 @@ export default function RatingsChart() {
   const [data, setData] = useState(initialData);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const updateData = useCallback((index: number, value: number) => {
-    setData((prevData) => {
-      const newData = [...prevData];
-      newData[index].value = value;
-      return newData;
-    });
-  }, []);
-
   return (
-    <div className="w-1/2 p-6">
+    <div>
       <div className="font-bold text-lg mb-1">Your Rating</div>
       <div className="text-gray-600 mb-6">
         Lorem ipsum dolor sit amet, consectetur
       </div>
-      <PieChart width={500} height={300}>
-        {data.map((entry, index) => (
-          <Pie
-            key={index}
-            activeIndex={activeIndex}
-            activeShape={renderActiveShape}
-            data={[entry]}
-            cx={entry.cx}
-            cy={entry.cy}
-            outerRadius={entry.radius}
-            fill={entry.color}
-            dataKey="value"
-            startAngle={0}
-          />
-        ))}
-      </PieChart>
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          {data.map((entry, index) => (
+            <Pie
+              key={index}
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              data={[entry]}
+              cx={entry.cx}
+              cy={entry.cy}
+              outerRadius={entry.radius}
+              fill={entry.color}
+              dataKey="value"
+              startAngle={0}
+            />
+          ))}
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   );
 }

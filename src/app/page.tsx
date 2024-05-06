@@ -9,38 +9,50 @@ import { poppins } from "./dashboard/font";
 
 export default function Page() {
   return (
-    <main className="px-8">
-      <header className="flex justify-between">
+    <main className="px-4 sm:px-8 py-4 sm:py-8">
+      <header>
         <Header />
       </header>
-      <div className="flex w-full h-full">
-        <div className="w-1/6 h-full bg-gray-100 border-r border-gray-300">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-2 w-full h-full">
+        <div className="col-span-1 md:col-span-2 bg-gray-100  p-4 md:p-0">
           <Sidenav />
         </div>
-        <div className="flex flex-col w-1/2 h-full mt-5 bg-white border-r border-gray-300">
-          <div className="p-6 font-bold">
-            <h1>Dashboard</h1>
+
+        <div className="col-span-1 md:col-span-10 flex flex-col gap-6">
+          <div className="bg-white overflow-hidden p-2 flex-grow ">
+            <h1 className="font-bold text-2xl">Dashboard</h1>
           </div>
-          <div className="flex flex-col flex-grow">
-            <div className="flex-grow h-1/2 border-b border-gray-300">
-              <RevenueChart />
+
+          <div className="grid grid-cols-10 gap-1">
+            <div className="col-span-10 md:col-span-6 bg-white shadow-lg rounded-lg overflow-hidden flex-grow">
+              <div className="p-6">
+                <RevenueChart />
+              </div>
             </div>
-            <div className="flex w-full h-1/2">
-              <div className="w-1/2">
+
+            <div className="col-span-10 md:col-span-4 bg-white shadow-lg rounded-lg overflow-hidden flex-grow">
+              <div className="p-6">
+                <OrderTimeChart />
+              </div>
+            </div>
+
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden flex-grow col-span-10 md:col-span-3">
+              <div className="p-6">
                 <RatingsChart />
               </div>
-              <div className="w-1/2 border-l border-gray-300">
+            </div>
+
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden flex-grow col-span-10 md:col-span-3">
+              <div className="p-6">
                 <MostOrderedFoodsList />
               </div>
             </div>
-          </div>
-        </div>
-        <div className="w-1/4 h-full mt-24 bg-white">
-          <div className="h-1/2">
-            <OrderTimeChart />
-          </div>
-          <div className="h-1/2 border-t border-gray-300">
-            <OrderTrendChart />
+
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden flex-grow col-span-10 md:col-span-4">
+              <div className="p-6">
+                <OrderTrendChart />
+              </div>
+            </div>
           </div>
         </div>
       </div>

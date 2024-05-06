@@ -7,6 +7,7 @@ import {
   Tooltip,
   Cell,
   TooltipProps,
+  ResponsiveContainer,
   Payload,
 } from "recharts";
 
@@ -27,14 +28,6 @@ const data02: ChartData[] = [
 const COLORS: string[] = ["#5A6ACF", "#8593ED", "#C7CEFF"];
 
 type CustomTooltipProps = TooltipProps<number, string>;
-type Payload = {
-  color: string;
-  value: number;
-  name: string;
-  payload: ChartData;
-};
-
-type activePayload = {} | null;
 
 function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (active && payload && payload.length) {
@@ -55,8 +48,11 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
 }
 
 // Custom legend formatter
-const renderCustomLegend = (value: string, entry: Payload) => {
-  const { color, payload } = entry;
+const renderCustomLegend = (
+  value: string,
+  entry: Payload<ChartData>
+): React.ReactNode => {
+  const { payload } = entry;
   const total = data02.reduce((acc, item) => acc + item.value, 0);
   const percentage = ((payload.value / total) * 100).toFixed(2) + "%";
 
@@ -76,26 +72,28 @@ export default function OrderTimeChart() {
       </div>
       <OrderTimeChartInfo />
       <div>
-        <PieChart width={500} height={300}>
-          <Pie
-            dataKey="value"
-            data={data02}
-            cx={200}
-            cy={100}
-            innerRadius={70}
-            outerRadius={100}
-            width={500}
-          >
-            {data02.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Tooltip content={<CustomTooltip />} />
-          <Legend formatter={renderCustomLegend} iconType="circle" />
-        </PieChart>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart width={500} height={300}>
+            <Pie
+              dataKey="value"
+              data={data02}
+              cx={200}
+              cy={100}
+              innerRadius={70}
+              outerRadius={100}
+              width={500}
+            >
+              {data02.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip content={<CustomTooltip />} />
+            <Legend formatter={renderCustomLegend} iconType="circle" />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

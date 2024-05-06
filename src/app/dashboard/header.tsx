@@ -6,10 +6,16 @@ import Logo from "./logo";
 
 export default function Header() {
   return (
-    <>
-      <Logo />
-      <Search />
-      <AccountInfo />
-    </>
+    <div className="flex w-full gap-5">
+      <div className="w-1/6">
+        <Logo />
+      </div>
+      <div className="w-1/2 ">
+        <Search />
+      </div>
+      <div className="w-1/3">
+        <AccountInfo />
+      </div>
+    </div>
   );
 }

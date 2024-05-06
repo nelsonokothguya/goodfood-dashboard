@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 import { legendFormatter } from "./revenue-chart";
 import ViewReportButton from "./view-report-button";
@@ -73,43 +74,45 @@ const data = [
 
 export default function OrderTrendChart() {
   return (
-    <div className="p-6">
+    <div className="">
       <div className="flex justify-between items-center">
         <h1 className="text-xlg font-semibold">Order</h1>
         <ViewReportButton />
       </div>
       <div>
         <OrderTrendChartInfo />
-        <div className="mt-10">
-          <LineChart
-            width={700}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey="date" />
+        <div>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart
+              width={700}
+              height={300}
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="date" />
 
-            <Tooltip content={<CustomTooltip />} />
-            <Legend iconType="circle" formatter={legendFormatter} />
-            <Line
-              dataKey="lastEightDays"
-              stroke="#5A6ACF"
-              dot={false}
-              strokeWidth={4}
-            />
-            <Line
-              dataKey="lastWeek"
-              stroke="#E6E8EC"
-              dot={false}
-              strokeWidth={4}
-            />
-          </LineChart>
+              <Tooltip content={<CustomTooltip />} />
+              <Legend iconType="circle" formatter={legendFormatter} />
+              <Line
+                dataKey="lastEightDays"
+                stroke="#5A6ACF"
+                dot={false}
+                strokeWidth={4}
+              />
+              <Line
+                dataKey="lastWeek"
+                stroke="#E6E8EC"
+                dot={false}
+                strokeWidth={4}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </div>
@@ -117,7 +120,7 @@ export default function OrderTrendChart() {
 }
 
 function OrderTrendChartInfo() {
-  const totalOrder = (data) => {
+  const totalOrder = (data: Data[]) => {
     const total = data.reduce((acc, curr) => acc + curr.lastEightDays, 0);
     return total.toFixed(3);
   };
