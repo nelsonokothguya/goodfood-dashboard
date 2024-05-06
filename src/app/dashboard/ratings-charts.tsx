@@ -12,8 +12,23 @@ type Data = {
   radius: number;
 };
 
-type Props = {
-  data: Data[];
+type ActiveShapeProps = {
+  cx: number;
+  cy: number;
+  innerRadius: number;
+  outerRadius: number;
+  startAngle: number;
+  endAngle: number;
+  fill: string;
+  payload: {
+    name: string;
+    value: number;
+    color: string;
+    cx: number;
+    cy: number;
+    radius: number;
+  };
+  value: number;
 };
 
 const initialData = [
@@ -21,29 +36,33 @@ const initialData = [
     name: "Food Taste",
     value: 85,
     color: "#f99c30",
-    cx: 270,
-    cy: 140,
+    cx: 225,
+    cy: 170,
     radius: 100,
   },
   {
     name: "Packaging",
     value: 92,
     color: "#2fbfde",
-    cx: 90,
+    cx: 50,
     cy: 200,
-    radius: 70,
+    radius: 52,
   },
   {
     name: "Hygiene",
     value: 85,
     color: "#8884d8",
-    cx: 150,
-    cy: 70,
+    cx: 120,
+    cy: 90,
     radius: 50,
   },
 ];
 
-const renderActiveShape = (props: any) => {
+const renderActiveShape = (props: unknown) => {
+  if (!isActiveShapeProps(props)) {
+    throw new Error("Invalid props passed to renderActiveShape");
+  }
+
   const {
     cx,
     cy,
@@ -67,7 +86,6 @@ const renderActiveShape = (props: any) => {
         endAngle={endAngle}
         fill={fill}
       />
-
       <text
         x={cx}
         y={cy}
@@ -100,6 +118,21 @@ const renderActiveShape = (props: any) => {
     </g>
   );
 };
+
+function isActiveShapeProps(props: any): props is ActiveShapeProps {
+  return (
+    "cx" in props &&
+    "cy" in props &&
+    "innerRadius" in props &&
+    "outerRadius" in props &&
+    "startAngle" in props &&
+    "endAngle" in props &&
+    "fill" in props &&
+    "payload" in props &&
+    typeof props.payload === "object" &&
+    "value" in props
+  );
+}
 
 export default function RatingsChart() {
   const [data, setData] = useState(initialData);
