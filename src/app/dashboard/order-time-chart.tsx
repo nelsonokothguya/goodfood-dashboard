@@ -8,8 +8,9 @@ import {
   Cell,
   TooltipProps,
   ResponsiveContainer,
-  Payload,
 } from "recharts";
+
+import { Payload } from "recharts/types/component/DefaultLegendContent";
 
 import ViewReportButton from "./view-report-button";
 
@@ -48,13 +49,10 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
 }
 
 // Custom legend formatter
-const renderCustomLegend = (
-  value: string,
-  entry: Payload<ChartData>
-): React.ReactNode => {
+const renderCustomLegend = (value: string, entry: Payload): React.ReactNode => {
   const { payload } = entry;
   const total = data02.reduce((acc, item) => acc + item.value, 0);
-  const percentage = ((payload.value / total) * 100).toFixed(2) + "%";
+  const percentage = ((payload?.value / total) * 100).toFixed(2) + "%";
 
   return (
     <span style={{ color: "#121212" }}>
