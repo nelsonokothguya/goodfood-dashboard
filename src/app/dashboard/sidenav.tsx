@@ -1,6 +1,6 @@
 "use client";
 import NavLinks from "./nav-links";
-import { Fragment } from "react";
+import { Fragment, FunctionComponent } from "react";
 import { ComponentProps, ComponentType } from "react";
 import {
   ChartBarIcon,
@@ -17,9 +17,11 @@ export type Link = {
   id: number;
   name: string;
   href: string;
-  Icon: ComponentType<ComponentProps<"svg">>;
-  section: "MENU" | "OTHERS";
+  Icon: FunctionComponent<ComponentProps<ComponentType>>;
+  section: string;
 };
+
+type Sections = Record<string, Link[]>;
 
 export const links = [
   {
@@ -80,17 +82,6 @@ export const links = [
   },
 ];
 
-// Utility function to group links by section
-function groupBySection(links: Link[]): Record<string, Link[]> {
-  return links.reduce((sections, link) => {
-    if (!sections[link.section]) {
-      sections[link.section] = [];
-    }
-    sections[link.section].push(link);
-    return sections;
-  }, {});
-}
-
 export default function Sidenav() {
   const groupedLinks = groupBySection(links);
 
@@ -110,4 +101,14 @@ export default function Sidenav() {
       ))}
     </div>
   );
+}
+
+function groupBySection(links: Link[]): Sections {
+  return links.reduce((sections: Sections, link) => {
+    if (!sections[link.section]) {
+      sections[link.section] = [];
+    }
+    sections[link.section].push(link);
+    return sections;
+  }, {} as Sections);
 }
