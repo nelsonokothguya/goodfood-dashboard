@@ -1,5 +1,8 @@
 # GoodFood Dashboard
 
+[Link to live application](https://goodfood-dashboard.vercel.app/)
+
+
 ## Overview
 This application serves as a dashboard for managing and monitoring various aspects of the GoodFood food delivery service. It provides insights into revenue, order distribution, customer ratings, popular food items, and order trends.
 
