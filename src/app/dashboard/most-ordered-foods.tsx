@@ -7,6 +7,7 @@ export type Food = {
   name: string;
   image_url: string;
   price: number;
+  orders: number;
 };
 
 export default function MostOrderedFoodsList() {
@@ -16,47 +17,74 @@ export default function MostOrderedFoodsList() {
         name: "Fresh Salad Bowl",
         image_url: "/foods/salad-bowl.avif",
         price: 45,
+        orders: 120,
       },
       {
         name: "Chicken Noodles",
         image_url: "/foods/chicken-noodles.jpeg",
         price: 75,
+        orders: 100,
       },
       {
         name: "Smoothie Fruits",
         image_url: "/foods/smoothie-fruits.avif",
         price: 45,
+        orders: 90,
       },
       {
         name: "Hot Chicken Wings",
         image_url: "/foods/hot-chicken-wings.avif",
         price: 55,
+        orders: 280,
+      },
+      {
+        name: "Beef Burger",
+        image_url: "/foods/beef-burger.avif",
+        price: 65,
+        orders: 70,
+      },
+      {
+        name: "Fried Rice",
+        image_url: "/foods/fried-rice.avif",
+        price: 50,
+        orders: 60,
+      },
+      {
+        name: "Grilled Salmon",
+        image_url: "/foods/grilled-salmon.avif",
+        price: 85,
+        orders: 50,
+      },
+      {
+        name: "Spaghetti Bolognese",
+        image_url: "/foods/spaghetti-bolognese.avif",
+        price: 70,
+        orders: 40,
       },
     ],
     []
   );
-  
 
   const sortedFoods = useMemo(() => {
-    const sortFoodsByPriceDesc = (arr: Food[]) => {
+    const sortFoodsByOrders = (arr: Food[]) => {
       const n = arr.length;
       for (let i = 1; i < n; i++) {
         let current = arr[i];
         let j = i - 1;
-        while (j > -1 && arr[j].price < current.price) {
+        while (j > -1 && arr[j].orders < current.orders) {
           // Sorting in descending order
           arr[j + 1] = arr[j];
           j--;
         }
         arr[j + 1] = current;
       }
-      return arr;
+      return arr.slice(0, 4);
     };
-    return sortFoodsByPriceDesc([...foods]); // Copy the array to avoid mutation
+    return sortFoodsByOrders([...foods]); // Copy the array to avoid mutation
   }, [foods]);
 
   const formatPrice = (price: number) => {
-    return `IDR ${price.toFixed(3)}`;
+    return `IDR ${price.toFixed(2)}`;
   };
 
   return (
