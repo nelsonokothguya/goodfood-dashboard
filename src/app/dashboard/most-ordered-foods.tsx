@@ -9,83 +9,61 @@ export type Food = {
   price: number;
   orders: number;
 };
+export type Orderable = { orders: number };
+
+const foods: Food[] = [
+  {
+    name: "Fresh Salad Bowl",
+    image_url: "/foods/salad-bowl.avif",
+    price: 45,
+    orders: 120,
+  },
+  {
+    name: "Chicken Noodles",
+    image_url: "/foods/chicken-noodles.jpeg",
+    price: 75,
+    orders: 100,
+  },
+  {
+    name: "Smoothie Fruits",
+    image_url: "/foods/smoothie-fruits.avif",
+    price: 45,
+    orders: 90,
+  },
+  {
+    name: "Hot Chicken Wings",
+    image_url: "/foods/hot-chicken-wings.avif",
+    price: 55,
+    orders: 280,
+  },
+  {
+    name: "Beef Burger",
+    image_url: "/foods/beef-burger.avif",
+    price: 65,
+    orders: 70,
+  },
+  {
+    name: "Fried Rice",
+    image_url: "/foods/fried-rice.avif",
+    price: 50,
+    orders: 60,
+  },
+  {
+    name: "Grilled Salmon",
+    image_url: "/foods/grilled-salmon.avif",
+    price: 85,
+    orders: 50,
+  },
+  {
+    name: "Spaghetti Bolognese",
+    image_url: "/foods/spaghetti-bolognese.avif",
+    price: 70,
+    orders: 400,
+  },
+];
 
 export default function MostOrderedFoodsList() {
-  const foods = useMemo(
-    () => [
-      {
-        name: "Fresh Salad Bowl",
-        image_url: "/foods/salad-bowl.avif",
-        price: 45,
-        orders: 120,
-      },
-      {
-        name: "Chicken Noodles",
-        image_url: "/foods/chicken-noodles.jpeg",
-        price: 75,
-        orders: 100,
-      },
-      {
-        name: "Smoothie Fruits",
-        image_url: "/foods/smoothie-fruits.avif",
-        price: 45,
-        orders: 90,
-      },
-      {
-        name: "Hot Chicken Wings",
-        image_url: "/foods/hot-chicken-wings.avif",
-        price: 55,
-        orders: 280,
-      },
-      {
-        name: "Beef Burger",
-        image_url: "/foods/beef-burger.avif",
-        price: 65,
-        orders: 70,
-      },
-      {
-        name: "Fried Rice",
-        image_url: "/foods/fried-rice.avif",
-        price: 50,
-        orders: 60,
-      },
-      {
-        name: "Grilled Salmon",
-        image_url: "/foods/grilled-salmon.avif",
-        price: 85,
-        orders: 50,
-      },
-      {
-        name: "Spaghetti Bolognese",
-        image_url: "/foods/spaghetti-bolognese.avif",
-        price: 70,
-        orders: 40,
-      },
-    ],
-    []
-  );
-
-  const sortedFoods = useMemo(() => {
-    const sortFoodsByOrders = (arr: Food[]) => {
-      const n = arr.length;
-      for (let i = 1; i < n; i++) {
-        let current = arr[i];
-        let j = i - 1;
-        while (j > -1 && arr[j].orders < current.orders) {
-          // Sorting in descending order
-          arr[j + 1] = arr[j];
-          j--;
-        }
-        arr[j + 1] = current;
-      }
-      return arr.slice(0, 4);
-    };
-    return sortFoodsByOrders([...foods]); // Copy the array to avoid mutation
-  }, [foods]);
-
-  const formatPrice = (price: number) => {
-    return `IDR ${price.toFixed(2)}`;
-  };
+  const sortedFoods = useMemo(() => insertionSort(foods).slice(0, 4), []);
 
   return (
     <div className="bg-white rounded-lg">
@@ -119,4 +97,23 @@ export default function MostOrderedFoodsList() {
       </div>
     </div>
   );
+}
+
+export function insertionSort<T extends Orderable>(arr: T[]): T[] {
+  const n = arr.length;
+  for (let i = 1; i < n; i++) {
+    let current = arr[i];
+    let j = i - 1;
+    while (j > -1 && arr[j].orders < current.orders) {
+      // Sorting in descending order
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = current;
+  }
+  return arr;
+}
+
+export function formatPrice(price: number) {
+  return `$${price.toFixed(2)}`;
 }
